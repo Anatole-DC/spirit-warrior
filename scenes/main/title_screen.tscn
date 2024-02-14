@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmcrsaodg1gwp"]
+
+[ext_resource type="Script" path="res://scenes/main/title_screen.gd" id="1_01n65"]
+[ext_resource type="PackedScene" uid="uid://bghalb6tchsk1" path="res://entities/character/Character.tscn" id="1_8u164"]
+
+[sub_resource type="GDScript" id="GDScript_dwl4g"]
+script/source = "extends Button
+
+
+func _on_pressed():
+	get_tree().change_scene_to_file(\"res://scenes/demo_arena/demo_arena.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_bmjh0"]
+script/source = "extends Button
+
+
+func _on_pressed():
+	get_tree().quit()
+"
+
+[node name="TitleScreen" type="CenterContainer"]
+anchors_preset = -1
+anchor_left = -0.5
+anchor_top = -0.444
+anchor_right = 0.5
+anchor_bottom = 0.556
+offset_top = -0.287964
+offset_bottom = -0.288025
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_01n65")
+
+[node name="GameMenu" type="HFlowContainer" parent="."]
+process_mode = 3
+layout_mode = 2
+alignment = 1
+
+[node name="DemoArena" type="Button" parent="GameMenu"]
+layout_mode = 2
+text = "Demo Arena"
+script = SubResource("GDScript_dwl4g")
+
+[node name="Settings" type="Button" parent="GameMenu"]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitGame" type="Button" parent="GameMenu"]
+layout_mode = 2
+text = "Quit"
+script = SubResource("GDScript_bmjh0")
+
+[node name="Character" parent="." instance=ExtResource("1_8u164")]
+position = Vector2(576, 192)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 288)
+
+[connection signal="pressed" from="GameMenu/DemoArena" to="GameMenu/DemoArena" method="_on_pressed"]
+[connection signal="pressed" from="GameMenu/QuitGame" to="GameMenu/QuitGame" method="_on_pressed"]
