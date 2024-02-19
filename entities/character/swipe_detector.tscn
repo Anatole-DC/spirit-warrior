@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2ks8g5ex6yek"]
+
+[ext_resource type="Script" path="res://entities/character/swipe_detector.gd" id="1_4mx0r"]
+
+[node name="SwipeDetector" type="Node"]
+script = ExtResource("1_4mx0r")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

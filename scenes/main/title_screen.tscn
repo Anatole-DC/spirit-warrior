@@ -22,11 +22,11 @@ func _on_pressed():
 [node name="TitleScreen" type="CenterContainer"]
 anchors_preset = -1
 anchor_left = -0.5
-anchor_top = -0.444
+anchor_top = -0.389
 anchor_right = 0.5
 anchor_bottom = 0.556
-offset_top = -0.287964
-offset_bottom = -0.288025
+offset_top = -34.928
+offset_bottom = -0.287994
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_01n65")
@@ -54,7 +54,7 @@ script = SubResource("GDScript_bmjh0")
 position = Vector2(576, 192)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 288)
+position = Vector2(576, 325)
 
 [connection signal="pressed" from="GameMenu/DemoArena" to="GameMenu/DemoArena" method="_on_pressed"]
 [connection signal="pressed" from="GameMenu/QuitGame" to="GameMenu/QuitGame" method="_on_pressed"]

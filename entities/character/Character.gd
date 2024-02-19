@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
-@export var speed = 400
-var target = global_position
+@export var friction: float = 2.0
+@export_range(0.1, 0.9, 0.1) var min_velocity_before_stop: float = 10.0
 
-func _physics_process(delta):
-	if Input.is_mouse_button_pressed(1): # when click Left mouse button
-		target = get_global_mouse_position()
+func apply_friction_to_velocity(current_inertia: Vector2):
+	if velocity.distance_to(Vector2.ZERO) < min_velocity_before_stop:
+		return Vector2.ZERO
+	return current_inertia * 1/(1 + friction / 1000)
 
-	velocity = global_position.direction_to(target) * speed
+func _physics_process(_delta):
+	velocity = apply_friction_to_velocity(velocity)
+	move_and_slide()
 
-	if global_position.distance_to(target) > 5:
-		move_and_slide()
+func _on_swipe_detector_swipe(power: Vector2):
+	velocity = velocity + power
