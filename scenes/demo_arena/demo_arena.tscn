@@ -21,9 +21,7 @@ centered = false
 
 [node name="Character" parent="." instance=ExtResource("1_4odq7")]
 
-[node name="Camera2D" type="Camera2D" parent="Character"]
-
-[node name="Button" type="Button" parent="Character/Camera2D"]
+[node name="Button" type="Button" parent="Character"]
 offset_left = -504.0
 offset_top = -256.0
 offset_right = -402.0
@@ -31,4 +29,4 @@ offset_bottom = -225.0
 text = "Quit"
 script = ExtResource("3_ikbu0")
 
-[connection signal="pressed" from="Character/Camera2D/Button" to="Character/Camera2D/Button" method="_on_pressed"]
+[connection signal="pressed" from="Character/Button" to="Character/Button" method="_on_pressed"]
