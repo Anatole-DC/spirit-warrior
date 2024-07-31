@@ -1,3 +1,4 @@
 {
-    "godot_tools.editor_path": "/snap/bin/godot-4"
+    "godot_tools.editor_path": "/usr/bin/godot",
+    "godotTools.lsp.serverPort": 6007
 }
