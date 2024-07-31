@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxw4ve3mgvrlx"]
+
+[ext_resource type="Texture2D" uid="uid://cs4d1gtogf76j" path="res://assets/svgs/icon.svg" id="1_1ltna"]
+[ext_resource type="Script" path="res://entities/projectiles/Projectile.gd" id="1_qts2p"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_73ufi"]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j7k4k"]
+radius = 16.0
+
+[node name="Projectile" type="CharacterBody2D"]
+script = ExtResource("1_qts2p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_73ufi")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_1ltna")
+
+[node name="RigidBody2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j7k4k")
+
+[node name="ProjectileLifetimeTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ProjectileLifetimeTimer" to="." method="_on_projectile_lifetime_timer_timeout"]

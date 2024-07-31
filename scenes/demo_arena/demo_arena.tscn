@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bghalb6tchsk1" path="res://entities/character/Character.tscn" id="1_4odq7"]
 [ext_resource type="Script" path="res://scenes/demo_arena/demo_arena.gd" id="1_8618s"]
-[ext_resource type="Texture2D" uid="uid://qsmxa5vmuh67" path="res://assets/images/SBS - Seamless Space Backgrounds - Small 512x512/Small 512x512/Blue Nebula/Blue_Nebula_08-512x512.png" id="2_djv65"]
+[ext_resource type="Texture2D" uid="uid://dev1ayqjo5t1m" path="res://assets/images/SBS - Seamless Space Backgrounds - Small 512x512/Small 512x512/Blue Nebula/Blue_Nebula_08-512x512.png" id="2_djv65"]
 [ext_resource type="Script" path="res://scenes/demo_arena/MenuButton.gd" id="3_ikbu0"]
 
 [node name="DemoArena" type="Node2D"]
