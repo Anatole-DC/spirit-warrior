@@ -12,8 +12,6 @@ _<h4 align="center">Source code for my 2D mobile game, made with godot.</h4>_
 
 This repository is a small experiment of the [Godot engine](). The goal is not as much as learning the engine or how to make games but more to learn how to configure a godot project with industrialization in mind.
 
-> This project is configured to work on ubuntu with Godot 4 installed via snap.
-
 ___
 
 **Technos:** Godot
