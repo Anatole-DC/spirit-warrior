@@ -2,7 +2,7 @@ extends Node
 
 signal start_energy_charge
 signal energy_shield
-signal energy_throw
+signal energy_throw(power: Vector2)
 signal swipe(power: Vector2)
 signal reset
 
@@ -33,7 +33,7 @@ func process_release(position: Vector2):
 	elif is_charging and !is_swiping:
 		energy_shield.emit()
 	elif is_charging and is_swiping:
-		energy_throw.emit()
+		energy_throw.emit(process_swiping_power())
 
 	reset_values()
 
