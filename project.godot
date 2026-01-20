@@ -14,8 +14,12 @@ config/name="Spirit warrior"
 run/main_scene="res://scenes/main/title_screen.tscn"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.2", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/svgs/icon.svg"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 
@@ -27,6 +31,5 @@ project/assembly_name="spirit_warrior"
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

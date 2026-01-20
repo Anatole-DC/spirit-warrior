@@ -6,7 +6,6 @@ _<h4 align="center">Source code for my 2D mobile game, made with godot.</h4>_
 
 <!-- [![Pipeline status](https://github.com/Anatole-DC/template_python/actions/workflows/base.yml/badge.svg)](https://github.com/Anatole-DC/template_python/actions) -->
 ![Godot Engine](https://img.shields.io/badge/GODOT-%23FFFFFF.svg?style=for-the-badge&logo=godot-engine)
-[![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.carloscuesta.me/)
 
 </div>
 
