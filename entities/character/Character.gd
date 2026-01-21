@@ -63,13 +63,15 @@ func new_speed_from_new_direction_angle(new_direction_angle: float) -> float:
 	return speed + dash_speed
 
 func _on_swipe_detector_energy_shield():
-	stop_charging()
 	transfer_energy()
+	for projectile_direction in range(0, 360, 45):
+		shoot_projectile(deg_to_rad(projectile_direction), (projectile_power * power_charge), 0.5)
+	stop_charging()
 
 
 func _on_swipe_detector_energy_throw(power: Vector2):
 	var player_energy = transfer_energy()
-	shoot_projectile(power.angle(), player_energy + (projectile_power * power_charge))
+	shoot_projectile(power.angle(), player_energy + (projectile_power * power_charge), 5)
 	stop_charging()
 
 
@@ -90,8 +92,9 @@ func transfer_energy() -> float:
 	return energy_transfered
 	
 
-func shoot_projectile(angle: float, power: float):
+func shoot_projectile(angle: float, power: float, lifetime: float):
 	var new_projectile = projectile.instantiate()
 	new_projectile.velocity = Vector2.RIGHT.rotated(angle) * power
 	new_projectile.spawn_position = position
+	new_projectile.lifetime = lifetime
 	get_tree().get_root().add_child.call_deferred(new_projectile)
