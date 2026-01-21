@@ -2,8 +2,8 @@ extends Node
 
 signal start_energy_charge
 signal energy_shield
-signal energy_throw(power: Vector2)
-signal swipe(power: Vector2)
+signal energy_throw(direction: Vector2)
+signal swipe(direction: Vector2)
 signal reset
 
 @export var min_swipe_length: int = 50
@@ -29,15 +29,15 @@ func process_release(position: Vector2):
 	end_position = position
 
 	if is_swiping and !is_charging:
-		swipe.emit(process_swiping_power())
+		swipe.emit(process_swiping_direction())
 	elif is_charging and !is_swiping:
 		energy_shield.emit()
 	elif is_charging and is_swiping:
-		energy_throw.emit(process_swiping_power())
+		energy_throw.emit(process_swiping_direction())
 
 	reset_values()
 
-func process_swiping_power():
+func process_swiping_direction():
 	return Vector2(
 		end_position.x - start_position.x,
 		end_position.y - start_position.y
