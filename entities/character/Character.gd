@@ -13,7 +13,7 @@ var time_slide_begin: float = 0.0
 ## Speed represents the magnitude of the velocity vector
 var speed: float = 0.0
 ## Direction represents the velocity angle to the x axis
-var direction: float = 0.0
+var character_direction: float = 0.0
 
 
 
@@ -33,7 +33,7 @@ var is_charging: bool = false
 func apply_friction_to_velocity() -> Vector2:
 	time_slide_begin += get_physics_process_delta_time()
 	speed = speed * velocity_curve.sample(time_slide_begin / time_to_stop)
-	return Vector2(1, 0).rotated(direction) * speed
+	return Vector2(1, 0).rotated(character_direction) * speed
 
 
 func _physics_process(_delta):
@@ -51,8 +51,8 @@ func _process(delta):
 func _on_swipe_detector_swipe(movement: Vector2):
 	stop_charging()
 	time_slide_begin = 0.0
-	direction = movement.angle()
-	speed = clamp(speed + 500, 0, max_speed)
+	character_direction = movement.angle()
+	speed += 500
 
 func _on_swipe_detector_energy_shield():
 	stop_charging()
@@ -66,8 +66,8 @@ func _on_swipe_detector_energy_throw(power: Vector2):
 			power_charge, power_charge
 		) + velocity
 	)
-	transfer_energy()
-	shoot_projectile(power.normalized() * (power_charge * energy_power))
+	var projectile_power = transfer_energy()
+	shoot_projectile(power.angle(), projectile_power + energy_power)
 	stop_charging()
 
 
@@ -82,15 +82,14 @@ func stop_charging():
 	is_charging = false
 	power_charge = 0.0
 
-func transfer_energy() -> Vector2:
-	var energy_transfered: Vector2 = velocity
-	velocity = Vector2.ZERO
+func transfer_energy() -> float:
+	var energy_transfered: float = speed
 	speed = 0
 	return energy_transfered
 	
 
-func shoot_projectile(projectile_initial_velocity: Vector2):
+func shoot_projectile(angle: float, power: float):
 	var new_projectile = projectile.instantiate()
-	new_projectile.velocity = projectile_initial_velocity
+	new_projectile.velocity = Vector2.RIGHT.rotated(angle) * power
 	new_projectile.spawn_position = position
 	get_tree().get_root().add_child.call_deferred(new_projectile)
