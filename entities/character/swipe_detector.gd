@@ -4,7 +4,6 @@ signal start_energy_charge
 signal energy_shield
 signal energy_throw(direction: Vector2)
 signal swipe(direction: Vector2)
-signal reset
 
 @export var min_swipe_length: int = 50
 @export var min_delay_before_charge: float = 0.3
