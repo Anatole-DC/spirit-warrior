@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqtsce5x3ep34"]
+
+[ext_resource type="Script" uid="uid://bt03skb2rwwtn" path="res://scenes/demo_arena/MenuButton.gd" id="1_8qqss"]
+
+[node name="InGameUi" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -95.0
+offset_bottom = 51.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="QuitButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+script = ExtResource("1_8qqss")
+
+[connection signal="pressed" from="MarginContainer/QuitButton" to="MarginContainer/QuitButton" method="_on_pressed"]
