@@ -6,8 +6,9 @@ extends CharacterBody2D
 ## Value used to slow down the player's velocity
 @export var velocity_curve: Curve
 ## Min value, which when velocity his lower than, stops the player
-@export var max_speed: float = 1000.0
+@export var max_speed: float = 2000.0
 @export var time_to_stop: float = 5.0
+@export var dash_speed: float = 700
 ## Time since the beggining of the slide
 var time_slide_begin: float = 0.0
 ## Speed represents the magnitude of the velocity vector
@@ -19,7 +20,7 @@ var character_direction: float = 0.0
 
 ## Energy projectile object
 var projectile: Resource = load("res://entities/projectiles/Projectile.tscn")
-@export var energy_power: float = 2.0
+@export var projectile_power: float = 600
 
 ## Power charge buffer used to load energy
 var power_charge: float = 0.0
@@ -31,9 +32,11 @@ var is_charging: bool = false
 ##
 ## [color=yellow]Warning:[/color] This function will have to be improved.[br]
 func apply_friction_to_velocity() -> Vector2:
-	time_slide_begin += get_physics_process_delta_time()
-	speed = speed * velocity_curve.sample(time_slide_begin / time_to_stop)
-	return Vector2(1, 0).rotated(character_direction) * speed
+	if speed == 0.0:
+		return Vector2.ZERO
+	time_slide_begin = clamp(time_slide_begin + get_physics_process_delta_time(), 0, time_to_stop)
+	speed = clamp(speed * velocity_curve.sample(time_slide_begin / time_to_stop), 0, max_speed)
+	return Vector2.RIGHT.rotated(character_direction) * speed
 
 
 func _physics_process(_delta):
@@ -52,7 +55,12 @@ func _on_swipe_detector_swipe(movement: Vector2):
 	stop_charging()
 	time_slide_begin = 0.0
 	character_direction = movement.angle()
-	speed += 500
+	speed = new_speed_from_new_direction_angle(character_direction)
+
+func new_speed_from_new_direction_angle(new_direction_angle: float) -> float:
+	if abs(new_direction_angle - velocity.angle()) > deg_to_rad(90):
+		return dash_speed
+	return speed + dash_speed
 
 func _on_swipe_detector_energy_shield():
 	stop_charging()
@@ -60,14 +68,8 @@ func _on_swipe_detector_energy_shield():
 
 
 func _on_swipe_detector_energy_throw(power: Vector2):
-	print_debug(
-		"FACIAL with power : ", 
-		Vector2(
-			power_charge, power_charge
-		) + velocity
-	)
-	var projectile_power = transfer_energy()
-	shoot_projectile(power.angle(), projectile_power + energy_power)
+	var player_energy = transfer_energy()
+	shoot_projectile(power.angle(), player_energy + (projectile_power * power_charge))
 	stop_charging()
 
 
