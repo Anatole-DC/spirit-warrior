@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0mahbf86hwrd"]
+[gd_scene load_steps=6 format=3 uid="uid://c0mahbf86hwrd"]
 
 [ext_resource type="PackedScene" uid="uid://bghalb6tchsk1" path="res://entities/character/Character.tscn" id="1_4odq7"]
-[ext_resource type="Script" path="res://scenes/demo_arena/demo_arena.gd" id="1_8618s"]
-[ext_resource type="Texture2D" uid="uid://dev1ayqjo5t1m" path="res://assets/images/SBS - Seamless Space Backgrounds - Small 512x512/Small 512x512/Blue Nebula/Blue_Nebula_08-512x512.png" id="2_djv65"]
-[ext_resource type="Script" path="res://scenes/demo_arena/MenuButton.gd" id="3_ikbu0"]
+[ext_resource type="Script" uid="uid://bwhkvwfuuncux" path="res://scenes/demo_arena/demo_arena.gd" id="1_8618s"]
+[ext_resource type="Texture2D" uid="uid://dmc0dcbgmg6e4" path="res://assets/images/SBS - Seamless Space Backgrounds - Small 512x512/Small 512x512/Blue Nebula/Blue_Nebula_08-512x512.png" id="2_djv65"]
+[ext_resource type="Script" uid="uid://bt03skb2rwwtn" path="res://scenes/demo_arena/MenuButton.gd" id="3_ikbu0"]
+
+[sub_resource type="Curve" id="Curve_tmgdc"]
+_data = [Vector2(0, 1), 0.0, -0.10337049, 0, 0, Vector2(1, 0.011235952), -3.235952, 0.0, 0, 0]
+point_count = 2
 
 [node name="DemoArena" type="Node2D"]
 script = ExtResource("1_8618s")
@@ -20,6 +24,8 @@ texture = ExtResource("2_djv65")
 centered = false
 
 [node name="Character" parent="." instance=ExtResource("1_4odq7")]
+velocity_curve = SubResource("Curve_tmgdc")
+energy_power = 600.0
 
 [node name="Button" type="Button" parent="Character"]
 offset_left = -504.0
