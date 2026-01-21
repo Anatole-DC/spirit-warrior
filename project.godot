@@ -17,10 +17,6 @@ config/quit_on_go_back=false
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/svgs/icon.svg"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [display]
 
 window/handheld/orientation=1
@@ -28,6 +24,12 @@ window/handheld/orientation=1
 [dotnet]
 
 project/assembly_name="spirit_warrior"
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="ennemies"
+2d_physics/layer_3="projectiles"
 
 [rendering]
 

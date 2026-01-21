@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxw4ve3mgvrlx"]
 
-[ext_resource type="Texture2D" uid="uid://cs4d1gtogf76j" path="res://assets/svgs/icon.svg" id="1_1ltna"]
-[ext_resource type="Script" path="res://entities/projectiles/Projectile.gd" id="1_qts2p"]
+[ext_resource type="Texture2D" uid="uid://byuo4hdjf33lb" path="res://assets/svgs/icon.svg" id="1_1ltna"]
+[ext_resource type="Script" uid="uid://dp3bhjcqwjv4h" path="res://entities/projectiles/Projectile.gd" id="1_qts2p"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_73ufi"]
 blend_mode = 1
@@ -10,6 +10,8 @@ blend_mode = 1
 radius = 16.0
 
 [node name="Projectile" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 6
 script = ExtResource("1_qts2p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -21,6 +23,7 @@ texture = ExtResource("1_1ltna")
 shape = SubResource("CircleShape2D_j7k4k")
 
 [node name="ProjectileLifetimeTimer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="ProjectileLifetimeTimer" to="." method="_on_projectile_lifetime_timer_timeout"]
