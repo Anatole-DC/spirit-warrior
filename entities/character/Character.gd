@@ -2,21 +2,28 @@ extends CharacterBody2D
 
 ## Player character controller	
 
+
 ## Value used to slow down the player's velocity
-@export var friction: float = 2.0
-
+@export var velocity_curve: Curve
 ## Min value, which when velocity his lower than, stops the player
-@export_range(0.1, 0.9, 0.1) var min_velocity_before_stop: float = 10.0
+@export var max_speed: float = 2000.0
+@export var time_to_stop: float = 5.0
+@export var dash_speed: float = 700
+## Time since the beggining of the slide
+var time_slide_begin: float = 0.0
+## Speed represents the magnitude of the velocity vector
+var speed: float = 0.0
+## Direction represents the velocity angle to the x axis
+var character_direction: float = 0.0
 
-## A ratio by which the swipping power is multiplied by to improve the player's speed
-@export var swiping_power_factor: float = 2.0
+
 
 ## Energy projectile object
 var projectile: Resource = load("res://entities/projectiles/Projectile.tscn")
+@export var projectile_power: float = 600
 
 ## Power charge buffer used to load energy
 var power_charge: float = 0.0
-
 ## Boolean check for the energy charge and release
 var is_charging: bool = false
 
@@ -24,42 +31,48 @@ var is_charging: bool = false
 ## Apply a friction ration to the player's velocity [br]
 ##
 ## [color=yellow]Warning:[/color] This function will have to be improved.[br]
-func apply_friction_to_velocity(current_inertia: Vector2):
-	if velocity.distance_to(Vector2.ZERO) < min_velocity_before_stop:
+func apply_friction_to_velocity() -> Vector2:
+	if speed == 0.0:
 		return Vector2.ZERO
-	return current_inertia * 1/(1 + friction / 1000)
+	time_slide_begin = clamp(time_slide_begin + get_physics_process_delta_time(), 0, time_to_stop)
+	speed = clamp(speed * velocity_curve.sample(time_slide_begin / time_to_stop), 0, max_speed)
+	return Vector2.RIGHT.rotated(character_direction) * speed
 
 
 func _physics_process(_delta):
-	velocity = apply_friction_to_velocity(velocity)
+	velocity = apply_friction_to_velocity()
 	move_and_slide()
 
+func _get_current_speed() -> float:
+	return velocity.length()
 
 func _process(delta):
 	if is_charging:
 		power_charge = power_charge + delta
 		$Camera2D.apply_shake(power_charge)
 
-func _on_swipe_detector_swipe(power: Vector2):
-	print_debug("WAZAAA")
+func _on_swipe_detector_swipe(movement: Vector2):
 	stop_charging()
-	velocity = velocity + power
+	time_slide_begin = 0.0
+	character_direction = movement.angle()
+	speed = new_speed_from_new_direction_angle(character_direction)
 
+func new_speed_from_new_direction_angle(new_direction_angle: float) -> float:
+	if abs(new_direction_angle - velocity.angle()) > deg_to_rad(90):
+		return dash_speed
+	return speed + dash_speed
 
 func _on_swipe_detector_energy_shield():
-	print_debug("SHIELD with power : ", power_charge)
+	transfer_energy()
+	for projectile_direction in range(0, 360, 45):
+		shoot_projectile(deg_to_rad(projectile_direction), (projectile_power * power_charge), 0.5)
 	stop_charging()
 
 
 func _on_swipe_detector_energy_throw(power: Vector2):
-	print_debug(
-		"FACIAL with power : ", 
-		Vector2(
-			power_charge, power_charge
-		) + velocity
-	)
+	var player_energy = transfer_energy()
+	shoot_projectile(power.angle(), player_energy + (projectile_power * power_charge), 5)
 	stop_charging()
-	shoot_projectile(power)
 
 
 func _on_swipe_detector_start_energy_charge():
@@ -69,14 +82,19 @@ func _on_swipe_detector_start_energy_charge():
 func _on_swipe_detector_reset():
 	stop_charging()
 
-
 func stop_charging():
 	is_charging = false
 	power_charge = 0.0
+
+func transfer_energy() -> float:
+	var energy_transfered: float = speed
+	speed = 0
+	return energy_transfered
 	
 
-func shoot_projectile(projectile_initial_velocity: Vector2):
+func shoot_projectile(angle: float, power: float, lifetime: float):
 	var new_projectile = projectile.instantiate()
-	new_projectile.velocity = projectile_initial_velocity
-	new_projectile.spawn_position = global_position
-	self.add_child.call_deferred(new_projectile)
+	new_projectile.velocity = Vector2.RIGHT.rotated(angle) * power
+	new_projectile.spawn_position = position
+	new_projectile.lifetime = lifetime
+	get_tree().get_root().add_child.call_deferred(new_projectile)

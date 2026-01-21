@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
 var spawn_position: Vector2
+@export var lifetime: float = 2.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Spawing new projectile")
 	global_position = spawn_position
+	$ProjectileLifetimeTimer.start(lifetime)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -14,4 +15,3 @@ func _process(_delta):
 
 func _on_projectile_lifetime_timer_timeout():
 	queue_free()
-	print("Projectile destroyed")
