@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bghalb6tchsk1"]
+[gd_scene load_steps=5 format=3 uid="uid://bghalb6tchsk1"]
 
 [ext_resource type="Script" uid="uid://bnctfw1q4806n" path="res://entities/character/Character.gd" id="1_25shk"]
 [ext_resource type="Texture2D" uid="uid://byuo4hdjf33lb" path="res://assets/svgs/icon.svg" id="1_b0pnm"]
 [ext_resource type="PackedScene" uid="uid://c2ks8g5ex6yek" path="res://entities/character/swipe_detector.tscn" id="3_sbudq"]
-[ext_resource type="Script" uid="uid://ck10hfo7xqgnc" path="res://scenes/demo_arena/character_camera.gd" id="4_sgbxw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rcydy"]
 size = Vector2(92, 92)
@@ -19,9 +18,6 @@ scale = Vector2(0.727, 0.727)
 texture = ExtResource("1_b0pnm")
 
 [node name="SwipeDetector" parent="." instance=ExtResource("3_sbudq")]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("4_sgbxw")
 
 [connection signal="energy_shield" from="SwipeDetector" to="." method="_on_swipe_detector_energy_shield"]
 [connection signal="energy_throw" from="SwipeDetector" to="." method="_on_swipe_detector_energy_throw"]

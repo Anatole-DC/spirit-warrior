@@ -58,7 +58,7 @@ func _on_swipe_detector_swipe(movement: Vector2):
 	speed = new_speed_from_new_direction_angle(character_direction)
 
 func new_speed_from_new_direction_angle(new_direction_angle: float) -> float:
-	if abs(new_direction_angle - velocity.angle()) > deg_to_rad(90):
+	if abs(new_direction_angle - velocity.angle()) > deg_to_rad(360.0 / 3.0):
 		return dash_speed
 	return speed + dash_speed
 
