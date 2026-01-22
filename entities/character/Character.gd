@@ -99,3 +99,6 @@ func shoot_projectile(angle: float, power: float, lifetime: float):
 	new_projectile.spawn_position = position
 	new_projectile.lifetime = lifetime
 	get_tree().get_root().add_child.call_deferred(new_projectile)
+
+func die():
+	get_tree().change_scene_to_file("res://ui/DeathScreen.tscn")
