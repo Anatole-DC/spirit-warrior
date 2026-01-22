@@ -13,13 +13,11 @@ point_count = 2
 [node name="DemoArena" type="Node2D"]
 script = ExtResource("1_8618s")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="BackgroundParallax" type="Parallax2D" parent="."]
+repeat_size = Vector2(2048, 2048)
+repeat_times = 3
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-422, -657)
-motion_mirroring = Vector2(2048, 2048)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="BackgroundSprite" type="Sprite2D" parent="BackgroundParallax"]
 scale = Vector2(4, 4)
 texture = ExtResource("2_djv65")
 centered = false

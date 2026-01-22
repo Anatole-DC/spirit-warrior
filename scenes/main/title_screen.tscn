@@ -4,9 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bghalb6tchsk1" path="res://entities/character/Character.tscn" id="1_8u164"]
 [ext_resource type="PackedScene" uid="uid://dat8vewyfa0ax" path="res://ui/TitleScreenUI.tscn" id="3_6kkck"]
 
-[node name="TitleScreen" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="TitleScreen" type="Node"]
 script = ExtResource("1_01n65")
 
 [node name="Character" parent="." instance=ExtResource("1_8u164")]

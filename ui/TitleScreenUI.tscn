@@ -18,42 +18,44 @@ func _on_pressed():
 
 [node name="TitleScreenUi" type="CanvasLayer"]
 
-[node name="VSplitContainer" type="MarginContainer" parent="."]
-anchors_preset = 7
+[node name="MenuContainer" type="VBoxContainer" parent="."]
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -52.5
-offset_top = -131.0
-offset_right = 52.5
+offset_left = -100.5
+offset_right = 100.5
 grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 8
-theme_override_constants/margin_bottom = 100
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="GameMenu" type="HFlowContainer" parent="VSplitContainer"]
+[node name="Spacer" type="Control" parent="MenuContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameMenu" type="HFlowContainer" parent="MenuContainer"]
 process_mode = 3
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 6
 alignment = 1
 
-[node name="DemoArena" type="Button" parent="VSplitContainer/GameMenu"]
+[node name="DemoArena" type="Button" parent="MenuContainer/GameMenu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Demo Arena"
 script = SubResource("GDScript_fe6qa")
 
-[node name="Settings" type="Button" parent="VSplitContainer/GameMenu"]
+[node name="Settings" type="Button" parent="MenuContainer/GameMenu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Settings"
 
-[node name="QuitGame" type="Button" parent="VSplitContainer/GameMenu"]
+[node name="QuitGame" type="Button" parent="MenuContainer/GameMenu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 script = SubResource("GDScript_4ku88")
 
-[connection signal="pressed" from="VSplitContainer/GameMenu/DemoArena" to="VSplitContainer/GameMenu/DemoArena" method="_on_pressed"]
-[connection signal="pressed" from="VSplitContainer/GameMenu/QuitGame" to="VSplitContainer/GameMenu/QuitGame" method="_on_pressed"]
+[connection signal="pressed" from="MenuContainer/GameMenu/DemoArena" to="MenuContainer/GameMenu/DemoArena" method="_on_pressed"]
+[connection signal="pressed" from="MenuContainer/GameMenu/QuitGame" to="MenuContainer/GameMenu/QuitGame" method="_on_pressed"]
