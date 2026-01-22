@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0mahbf86hwrd"]
+[gd_scene load_steps=8 format=3 uid="uid://c0mahbf86hwrd"]
 
 [ext_resource type="PackedScene" uid="uid://bghalb6tchsk1" path="res://entities/character/Character.tscn" id="1_4odq7"]
 [ext_resource type="Script" uid="uid://bwhkvwfuuncux" path="res://scenes/demo_arena/demo_arena.gd" id="1_8618s"]
 [ext_resource type="Texture2D" uid="uid://dmc0dcbgmg6e4" path="res://assets/images/SBS - Seamless Space Backgrounds - Small 512x512/Small 512x512/Blue Nebula/Blue_Nebula_08-512x512.png" id="2_djv65"]
 [ext_resource type="Script" uid="uid://ck10hfo7xqgnc" path="res://scenes/demo_arena/character_camera.gd" id="4_a8ic5"]
 [ext_resource type="PackedScene" uid="uid://dqtsce5x3ep34" path="res://ui/InGameUI.tscn" id="5_a8ic5"]
+[ext_resource type="PackedScene" uid="uid://dea7plq5iiv85" path="res://entities/enemies/enemy.tscn" id="6_g2kti"]
 
 [sub_resource type="Curve" id="Curve_tmgdc"]
 _data = [Vector2(0, 1), 0.0, -0.10337049, 0, 0, Vector2(1, 0.011235952), -3.235952, 0.0, 0, 0]
@@ -31,3 +32,6 @@ position = Vector2(2, 0)
 script = ExtResource("4_a8ic5")
 
 [node name="InGameUi" parent="Character/Camera2D" instance=ExtResource("5_a8ic5")]
+
+[node name="Enemy" parent="." instance=ExtResource("6_g2kti")]
+position = Vector2(201, 193)
