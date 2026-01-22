@@ -94,7 +94,8 @@ func transfer_energy() -> float:
 
 func shoot_projectile(angle: float, power: float, lifetime: float):
 	var new_projectile = projectile.instantiate()
-	new_projectile.velocity = Vector2.RIGHT.rotated(angle) * power
+	new_projectile.direction = angle
+	new_projectile.speed = power
 	new_projectile.spawn_position = position
 	new_projectile.lifetime = lifetime
 	get_tree().get_root().add_child.call_deferred(new_projectile)
